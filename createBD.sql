@@ -7,14 +7,16 @@ CREATE TABLE usuario_dadosPessoais (
     telefone varchar(20),
     celular varchar(20),
     cpf int,
-    PRIMARY KEY (id, cpf)
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE endereco (
-    CEP int PRIMARY KEY,
+	idCep int primary key auto_increment,
+    cep int,
     rua varchar(50),
     numero int,
-    bairro varchar(50)
+    bairro varchar(50),
+    cidade varchar(30)
 );
 
 CREATE TABLE produto (
@@ -33,8 +35,7 @@ CREATE TABLE pedido (
 
 CREATE TABLE contem (
     fk_usuario_dadosPessoais_id int,
-    fk_usuario_dadosPessoais_cpf int,
-    fk_endereco_CEP int
+    fk_endereco_idCep int
 );
 
 CREATE TABLE itensPedido (
@@ -44,18 +45,17 @@ CREATE TABLE itensPedido (
 
 CREATE TABLE fazPedido (
     fk_usuario_dadosPessoais_id int,
-    fk_usuario_dadosPessoais_cpf int,
     fk_pedido_idPedido int
 );
  
 ALTER TABLE contem ADD CONSTRAINT FK_contem_1
-    FOREIGN KEY (fk_usuario_dadosPessoais_id, fk_usuario_dadosPessoais_cpf)
-    REFERENCES usuario_dadosPessoais (id, cpf)
+    FOREIGN KEY (fk_usuario_dadosPessoais_id)
+    REFERENCES usuario_dadosPessoais (id)
     ON DELETE RESTRICT;
  
 ALTER TABLE contem ADD CONSTRAINT FK_contem_2
-    FOREIGN KEY (fk_endereco_CEP)
-    REFERENCES endereco (CEP)
+    FOREIGN KEY (fk_endereco_idCep)
+    REFERENCES endereco (idCep)
     ON DELETE RESTRICT;
  
 ALTER TABLE itensPedido ADD CONSTRAINT FK_itensPedido_1
@@ -69,8 +69,8 @@ ALTER TABLE itensPedido ADD CONSTRAINT FK_itensPedido_2
     ON DELETE SET NULL;
  
 ALTER TABLE fazPedido ADD CONSTRAINT FK_fazPedido_1
-    FOREIGN KEY (fk_usuario_dadosPessoais_id, fk_usuario_dadosPessoais_cpf)
-    REFERENCES usuario_dadosPessoais (id, cpf)
+    FOREIGN KEY (fk_usuario_dadosPessoais_id)
+    REFERENCES usuario_dadosPessoais (id)
     ON DELETE SET NULL;
  
 ALTER TABLE fazPedido ADD CONSTRAINT FK_fazPedido_2
