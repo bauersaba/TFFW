@@ -1,15 +1,3 @@
-INSERT INTO usuario_dadosPessoais(nomeUsuario,senha,nome,sobrenome,telefone,celular,cpf)
-VALUES ('mbauer','123456','Marcelo Bauer','Sabaraense','1932222322','19994443222',25458796);
-
-INSERT INTO usuario_dadosPessoais(nomeUsuario,senha,nome,sobrenome,telefone,celular,cpf)
-VALUES ('elima','123456','Edson','Lima','1945923422','1992131133',12345687);
-
-INSERT INTO usuario_dadosPessoais(nomeUsuario,senha,nome,sobrenome,telefone,celular,cpf)
-VALUES ('aholanda','123456','Alciomar','Holanda','1922224544','19955554321',12345678);
-
-INSERT INTO usuario_dadosPessoais(nomeUsuario,senha,nome,sobrenome,telefone,celular,cpf)
-VALUES ('super','123456','Administrador','Sistema','1999999999','1911111111',11111111);
-
 DELIMITER //
 
 CREATE PROCEDURE `cadastroUsuarioCompleto` (usuario varchar(50),
@@ -41,7 +29,14 @@ END //
 DELIMITER ;
 
 CAll cadastroUsuarioCompleto('super', '123456', 'Administrador', 'Sistema', '1932221212', '19995344322', 22222222,
-							 13186190,'Gessy Vieira', 75, 'Novo Cambui','Hortolandia');
+							 13186190,'Rua Pastor Hugo ', 75, 'Pq Hortolandia','Hortolandia');
+
+
+CAll cadastroUsuarioCompleto('elima', '123456', 'Edson', 'Lima', '1933334521', '19987314533', 45632178,
+							 13003405,'Rua da oliveiras', 45, 'Matão','Campinas');
+                             
+INSERT INTO tffw.produto(codProduto,nomeProduto,saldo,valorUnitario)
+VALUES (04,'TV LG 85" SmartTV QLED', 2, 12450.77);
 
 
 
