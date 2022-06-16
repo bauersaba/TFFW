@@ -39,5 +39,29 @@ INSERT INTO tffw.produto(codProduto,nomeProduto,saldo,valorUnitario)
 VALUES (04,'TV LG 85" SmartTV QLED', 2, 12450.77);
 
 
+DELIMITER //
+CREATE PROCEDURE `registroPedido`(idUsuario int,
+								   codigoProduto int,
+								   itemPedido varchar(50),
+                                   qtdProduto int,
+                                   valortotal double)
+BEGIN
+	declare quantidade int;
+    set quantidade = qtdProduto;
+    IF quantidade >= produto.saldo THEN
+		INSERT INTO pedido(codProduto,itensPedido,quantidadeProduto,valorPedido)
+		VALUES(codigoProduto,itemPedido,qtdProduto,valortotal);
+		SELECT last_insert_id() INTO @idPedido;
+		INSERT INTO itensPedido(fk_pedido_idPedido,fk_produto_codProduto)
+		VALUES(@idPedido,codProduto);
+		INSERT INTO fazpedido(fk_usuario_dadosPessoais_id,fk_pedido_idPedido)
+		VALUES(idUsuario,@idPedido);
+        UPDATE produto SET saldo = saldo - qtdProduto where codProduto = codigoProduto;
+	END IF;
+END 
+DELIMITER //
+
+
+
 
 
