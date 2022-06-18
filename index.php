@@ -1,3 +1,26 @@
+<?php
+
+include'connect.php';
+
+// is set 
+if(isset($_POST['sub'])){
+    $u=$_POST['user'];
+    $p=$_POST['pass'];
+    
+   $s= "select * from reg where username='$u' and password= '$p'";   
+   $qu= mysqli_query($con, $s);
+   if(mysqli_num_rows($qu)>0){
+      $f= mysqli_fetch_assoc($qu);
+      $_SESSION['id']=$f['id'];
+      header ('location:home.php');
+   }
+   else{
+       echo 'username or password does not exist';
+   }
+  
+}
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -13,7 +36,7 @@
   <meta name="description" content="" />
   <meta name="author" content="" />
 
-  <title>Minics</title>
+  <title>Eletronic 90´s</title>
 
 
   <!-- bootstrap core css -->
@@ -44,13 +67,13 @@
               <a href="">
                 <i class="fa fa-phone" aria-hidden="true"></i>
                 <span>
-                  Call : +01 123455678990
+                  Ligue : 19 996299433
                 </span>
               </a>
               <a href="">
                 <i class="fa fa-envelope" aria-hidden="true"></i>
                 <span>
-                  Email : demo@gmail.com
+                  Email : eletronic90@gmail.com
                 </span>
               </a>
             </div>
@@ -61,16 +84,16 @@
               </button>
             </from>
             <div class="user_option_box">
-              <a href="" class="account-link">
+              <a href="loginplate.php" class="account-link">
                 <i class="fa fa-user" aria-hidden="true"></i>
                 <span>
-                  My Account
+                  Minha Conta
                 </span>
               </a>
               <a href="" class="cart-link">
                 <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                 <span>
-                  Cart
+                  Carrinho
                 </span>
               </a>
             </div>
@@ -83,7 +106,7 @@
           <nav class="navbar navbar-expand-lg custom_nav-container ">
             <a class="navbar-brand" href="index.html">
               <span>
-                Minics
+                Eletronic 90´s
               </span>
             </a>
 
@@ -97,17 +120,9 @@
                   <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="about.html"> About</a>
+                  <a class="nav-link" href="product.html">Produtos</a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="product.html">Products</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="why.html">Why Us</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="testimonial.html">Testimonial</a>
-                </li>
+
               </ul>
             </div>
           </nav>
@@ -125,13 +140,13 @@
                 <div class="col-md-6">
                   <div class="detail-box">
                     <h1>
-                      Welcome to our shop
+                      Bem vindo a Eletronic 90´s!
                     </h1>
                     <p>
                       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste quam velit saepe dolorem deserunt quo quidem ad optio.
                     </p>
                     <a href="">
-                      Read More
+                      Leia mais.
                     </a>
                   </div>
                 </div>
@@ -149,13 +164,13 @@
                 <div class="col-md-6">
                   <div class="detail-box">
                     <h1>
-                      Welcome to our shop
+                      Bem vindo a Eletronic 90´s!
                     </h1>
                     <p>
                       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste quam velit saepe dolorem deserunt quo quidem ad optio.
                     </p>
                     <a href="">
-                      Read More
+                      Leia mais.
                     </a>
                   </div>
                 </div>
@@ -173,13 +188,13 @@
                 <div class="col-md-6">
                   <div class="detail-box">
                     <h1>
-                      Welcome to our shop
+                      Bem vindo a Eletronic 90´s!
                     </h1>
                     <p>
                       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste quam velit saepe dolorem deserunt quo quidem ad optio.
                     </p>
                     <a href="">
-                      Read More
+                      Leia Mais
                     </a>
                   </div>
                 </div>
@@ -195,11 +210,11 @@
         <div class="carousel_btn_box">
           <a class="carousel-control-prev" href="#customCarousel1" role="button" data-slide="prev">
             <i class="fa fa-angle-left" aria-hidden="true"></i>
-            <span class="sr-only">Previous</span>
+            <span class="sr-only">Anterior</span>
           </a>
           <a class="carousel-control-next" href="#customCarousel1" role="button" data-slide="next">
             <i class="fa fa-angle-right" aria-hidden="true"></i>
-            <span class="sr-only">Next</span>
+            <span class="sr-only">Próximo</span>
           </a>
         </div>
       </div>
@@ -214,7 +229,7 @@
     <div class="container">
       <div class="heading_container heading_center">
         <h2>
-          Our Products
+          Nossos Produtos
         </h2>
       </div>
       <div class="row">
@@ -224,13 +239,13 @@
               <img src="images/p1.png" alt="">
               <a href="" class="add_cart_btn">
                 <span>
-                  Add To Cart
+                  Comprar
                 </span>
               </a>
             </div>
             <div class="detail-box">
               <h5>
-                Product Name
+                Nome do produto
               </h5>
               <div class="product_info">
                 <h5>
@@ -253,13 +268,13 @@
               <img src="images/p2.png" alt="">
               <a href="" class="add_cart_btn">
                 <span>
-                  Add To Cart
+                  Comprar
                 </span>
               </a>
             </div>
             <div class="detail-box">
               <h5>
-                Product Name
+                Nome do produto
               </h5>
               <div class="product_info">
                 <h5>
@@ -282,13 +297,13 @@
               <img src="images/p3.png" alt="">
               <a href="" class="add_cart_btn">
                 <span>
-                  Add To Cart
+                  Comprar
                 </span>
               </a>
             </div>
             <div class="detail-box">
               <h5>
-                Product Name
+                Nome do produto
               </h5>
               <div class="product_info">
                 <h5>
@@ -311,13 +326,13 @@
               <img src="images/p4.png" alt="">
               <a href="" class="add_cart_btn">
                 <span>
-                  Add To Cart
+                  Comprar
                 </span>
               </a>
             </div>
             <div class="detail-box">
               <h5>
-                Product Name
+                Nome do produto
               </h5>
               <div class="product_info">
                 <h5>
@@ -340,13 +355,13 @@
               <img src="images/p5.png" alt="">
               <a href="" class="add_cart_btn">
                 <span>
-                  Add To Cart
+                  Comprar
                 </span>
               </a>
             </div>
             <div class="detail-box">
               <h5>
-                Product Name
+                Nome do produto
               </h5>
               <div class="product_info">
                 <h5>
@@ -369,13 +384,13 @@
               <img src="images/p6.png" alt="">
               <a href="" class="add_cart_btn">
                 <span>
-                  Add To Cart
+                  Comprar
                 </span>
               </a>
             </div>
             <div class="detail-box">
               <h5>
-                Product Name
+                Nome do produto
               </h5>
               <div class="product_info">
                 <h5>
@@ -398,13 +413,13 @@
               <img src="images/p7.png" alt="">
               <a href="" class="add_cart_btn">
                 <span>
-                  Add To Cart
+                  Comprar
                 </span>
               </a>
             </div>
             <div class="detail-box">
               <h5>
-                Product Name
+                Nome do produto
               </h5>
               <div class="product_info">
                 <h5>
@@ -427,13 +442,13 @@
               <img src="images/p8.png" alt="">
               <a href="" class="add_cart_btn">
                 <span>
-                  Add To Cart
+                  Comprar
                 </span>
               </a>
             </div>
             <div class="detail-box">
               <h5>
-                Product Name
+                Nome do produto
               </h5>
               <div class="product_info">
                 <h5>
@@ -456,13 +471,13 @@
               <img src="images/p9.png" alt="">
               <a href="" class="add_cart_btn">
                 <span>
-                  Add To Cart
+                  Comprar
                 </span>
               </a>
             </div>
             <div class="detail-box">
               <h5>
-                Product Name
+                Mome do produto
               </h5>
               <div class="product_info">
                 <h5>
@@ -482,7 +497,7 @@
       </div>
       <div class="btn_box">
         <a href="" class="view_more-link">
-          View More
+          Mais +
         </a>
       </div>
     </div>
@@ -499,15 +514,14 @@
           <div class="detail-box pr-md-3">
             <div class="heading_container">
               <h2>
-                We Provide Best For You
+                Nós disponibilizamos os melhores produtos para você!
               </h2>
             </div>
             <p>
-              Totam architecto rem beatae veniam, cum officiis adipisci soluta perspiciatis ipsa, expedita maiores quae accusantium. Animi veniam aperiam, necessitatibus mollitia ipsum id optio ipsa odio ab facilis sit labore officia!
-              Repellat expedita, deserunt eum soluta rem culpa. Aut, necessitatibus cumque. Voluptas consequuntur vitae aperiam animi sint earum, ex unde cupiditate, molestias dolore quos quas possimus eveniet facilis magnam? Vero, dicta.
+              As melhores marcas, com os melhores preços! Produtos de alta qualidade , garantindo desempenho e satisfação aos nossos clientes.
             </p>
             <a href="">
-              Read More
+              Veja mais.
             </a>
           </div>
         </div>
@@ -528,7 +542,7 @@
     <div class="container">
       <div class="heading_container heading_center">
         <h2>
-          Why Choose Us
+          Por que escolher a Eletronic 90´s?
         </h2>
       </div>
       <div class="row">
@@ -539,10 +553,10 @@
             </div>
             <div class="detail-box">
               <h5>
-                Fast Delivery
+                Entrega rapida
               </h5>
               <p>
-                variations of passages of Lorem Ipsum available
+                As melhores transportadoras do Brasil
               </p>
             </div>
           </div>
@@ -554,10 +568,10 @@
             </div>
             <div class="detail-box">
               <h5>
-                Free Shiping
+                Envio Grátis
               </h5>
               <p>
-                variations of passages of Lorem Ipsum available
+                Nas compras acima de R$ 300,00
               </p>
             </div>
           </div>
@@ -569,10 +583,10 @@
             </div>
             <div class="detail-box">
               <h5>
-                Best Quality
+                Melhor qualidade
               </h5>
               <p>
-                variations of passages of Lorem Ipsum available
+                Somente marcas e fabricantes da melhor qualidade e respeito a integridade dos produtos.
               </p>
             </div>
           </div>
@@ -590,7 +604,7 @@
     <div class="container">
       <div class="heading_container heading_center">
         <h2>
-          What Says Our Customers
+          O que dizem nossos clientes
         </h2>
       </div>
     </div>
@@ -605,12 +619,12 @@
                     <i class="fa fa-quote-left" aria-hidden="true"></i>
                   </p>
                   <p>
-                    It is a long established fact that a reader will be distracted by the readable content of a page
-                    when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal
-                    distribution of letters, as opposed to using 'Content here, content here', making it lookIt is a
-                    long established fact that a reader will be distracted by the readable content of a page when
-                    looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal
-                    distribution of letters, as opposed to using 'Content here, content here', making it look
+                    É um fato estabelecido há muito tempo que um leitor se distrairá com o conteúdo legível de uma página
+                    ao olhar para o seu layout. O ponto de usar Lorem Ipsum é que ele tem um valor mais ou menos normal
+                    distribuição de cartas, ao invés de usar 'Conteúdo aqui, conteúdo aqui', fazendo com que pareça
+                    há muito estabelecido que um leitor se distrairá com o conteúdo legível de uma página quando
+                    olhando para o seu layout. O ponto de usar Lorem Ipsum é que ele tem um valor mais ou menos normal
+                    distribuição de cartas, em vez de usar 'Conteúdo aqui, conteúdo aqui', fazendo com que pareça
                   </p>
                 </div>
                 <div class="client-id">
@@ -622,7 +636,7 @@
                       James Dew
                     </h5>
                     <h6>
-                      Photographer
+                      Fotógrafo
                     </h6>
                   </div>
                 </div>
@@ -637,12 +651,12 @@
                     <i class="fa fa-quote-left" aria-hidden="true"></i>
                   </p>
                   <p>
-                    It is a long established fact that a reader will be distracted by the readable content of a page
-                    when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal
-                    distribution of letters, as opposed to using 'Content here, content here', making it lookIt is a
-                    long established fact that a reader will be distracted by the readable content of a page when
-                    looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal
-                    distribution of letters, as opposed to using 'Content here, content here', making it look
+                    É um fato estabelecido há muito tempo que um leitor se distrairá com o conteúdo legível de uma página
+                    ao olhar para o seu layout. O ponto de usar Lorem Ipsum é que ele tem um valor mais ou menos normal
+                    distribuição de cartas, ao invés de usar 'Conteúdo aqui, conteúdo aqui', fazendo com que pareça
+                    há muito estabelecido que um leitor se distrairá com o conteúdo legível de uma página quando
+                    olhando para o seu layout. O ponto de usar Lorem Ipsum é que ele tem um valor mais ou menos normal
+                    distribuição de cartas, em vez de usar 'Conteúdo aqui, conteúdo aqui', fazendo com que pareça
                   </p>
                 </div>
                 <div class="client-id">
@@ -654,7 +668,7 @@
                       James Dew
                     </h5>
                     <h6>
-                      Photographer
+                      Fotógrafo
                     </h6>
                   </div>
                 </div>
@@ -669,12 +683,12 @@
                     <i class="fa fa-quote-left" aria-hidden="true"></i>
                   </p>
                   <p>
-                    It is a long established fact that a reader will be distracted by the readable content of a page
-                    when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal
-                    distribution of letters, as opposed to using 'Content here, content here', making it lookIt is a
-                    long established fact that a reader will be distracted by the readable content of a page when
-                    looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal
-                    distribution of letters, as opposed to using 'Content here, content here', making it look
+                    É um fato estabelecido há muito tempo que um leitor se distrairá com o conteúdo legível de uma página
+                    ao olhar para o seu layout. O ponto de usar Lorem Ipsum é que ele tem um valor mais ou menos normal
+                    distribuição de cartas, ao invés de usar 'Conteúdo aqui, conteúdo aqui', fazendo com que pareça
+                    há muito estabelecido que um leitor se distrairá com o conteúdo legível de uma página quando
+                    olhando para o seu layout. O ponto de usar Lorem Ipsum é que ele tem um valor mais ou menos normal
+                    distribuição de cartas, em vez de usar 'Conteúdo aqui, conteúdo aqui', fazendo com que pareça
                   </p>
                 </div>
                 <div class="client-id">
@@ -686,7 +700,7 @@
                       James Dew
                     </h5>
                     <h6>
-                      Photographer
+                      Fotógrafo
                     </h6>
                   </div>
                 </div>
@@ -699,13 +713,13 @@
             <span>
               <i class="fa fa-angle-left" aria-hidden="true"></i>
             </span>
-            <span class="sr-only">Previous</span>
+            <span class="sr-only">Anterior</span>
           </a>
           <a class="carousel-control-next" href="#carouselExample2Controls" role="button" data-slide="next">
             <span>
               <i class="fa fa-angle-right" aria-hidden="true"></i>
             </span>
-            <span class="sr-only">Next</span>
+            <span class="sr-only">Próxima</span>
           </a>
         </div>
       </div>
@@ -722,13 +736,13 @@
             <h5>
               <a href="" class="navbar-brand">
                 <span>
-                  Minics
+                  Eletronic 90´s
                 </span>
               </a>
             </h5>
             <p>
               <i class="fa fa-map-marker" aria-hidden="true"></i>
-              Address
+              Endereço
             </p>
             <p>
               <i class="fa fa-phone" aria-hidden="true"></i>
@@ -736,24 +750,24 @@
             </p>
             <p>
               <i class="fa fa-envelope" aria-hidden="true"></i>
-              demo@gmail.com
+              eletronic90@gmail.com
             </p>
           </div>
         </div>
         <div class="col-md-3">
           <div class="info_info">
             <h5>
-              Information
+              Informação
             </h5>
             <p>
-              Eligendi sunt, provident, debitis nemo, facilis cupiditate velit libero dolorum aperiam enim nulla iste maxime corrupti ad illo libero minus.
-            </p>
+              Eles têm que escolher, cuidar de suas dívidas, ninguém é fácil, nenhum desejo de estar disposto a abrir a dor sem dor, pois ninguém é particularmente corrompido por essa liberdade.
+           </p>
           </div>
         </div>
         <div class="col-md-3">
           <div class="info_links">
             <h5>
-              Useful Link
+              Link útil
             </h5>
             <ul>
               <li>
@@ -762,23 +776,8 @@
                 </a>
               </li>
               <li>
-                <a href="about.html">
-                  About
-                </a>
-              </li>
-              <li>
                 <a href="product.html">
-                  Products
-                </a>
-              </li>
-              <li>
-                <a href="why.html">
-                  Why Us
-                </a>
-              </li>
-              <li>
-                <a href="testimonial.html">
-                  Testimonial
+                  Produtos
                 </a>
               </li>
             </ul>
@@ -787,12 +786,12 @@
         <div class="col-md-3">
           <div class="info_form ">
             <h5>
-              Newsletter
+              Boletim de Notícias
             </h5>
             <form action="">
-              <input type="email" placeholder="Enter your email">
+              <input type="email" placeholder="Informe seu E-mail">
               <button>
-                Subscribe
+                Se inscreva
               </button>
             </form>
             <div class="social_box">
@@ -822,8 +821,8 @@
   <footer class="footer_section">
     <div class="container">
       <p>
-        &copy; <span id="displayYear"></span> All Rights Reserved By
-        <a href="https://html.design/">Free Html Templates</a>
+        &copy; <span id="displayYear"></span> Todos os direitos reservados por
+        <a href="https://html.design/">Edson Lima e Marcelo Bauer</a>
       </p>
     </div>
   </footer>
