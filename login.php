@@ -17,7 +17,7 @@ if(isset($_POST['sub'])){
    }
    else{
      
-          $e = 'username or password does not exist';
+          $e = 'nome de usuário ou senha não existe';
    }
   
 }
@@ -27,7 +27,7 @@ if(isset($_POST['sub'])){
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Log in</title>
+  <title>AdminLTE 3 | Conecte-se</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -44,45 +44,45 @@ if(isset($_POST['sub'])){
      <div class="container" id="container">
           <div class="form-container sign-up-container">
                <form method="post">
-                    <h1>Create Account</h1>
+                    <h1>Criar uma conta</h1>
                     <div class="social-container">
                          <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
                          <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
                          <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
                     </div>
-                    <span>or use your email for registration</span>
+                    <span>ou use seu e-mail para cadastro</span>
                     <input type="text" placeholder="Name" />
                     <input type="email" placeholder="Email" />
                     <input type="password" placeholder="Password" />
-                    <button>Sign Up</button>
+                    <button>Inscrever-se</button>
                </form>
           </div>
           <div class="form-container sign-in-container">
                <form method="post">
-                    <h1>Sign in</h1>
+                    <h1>Entrar</h1>
                     <div class="social-container">
                          <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
                          <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
                          <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
                     </div>
-                    <span>or use your account</span>
+                    <span>ou use sua conta</span>
                     <input type="text" name="user" placeholder="Email" />
                     <input type="password" name="pass" placeholder="Password" />
                     <span><?php echo $e; ?></span>
-                    <a href="#">Forgot your password?</a>
-                    <button type="submit" name="sub">Sign In</button>
+                    <a href="#">Esqueceu sua senha?</a>
+                    <button type="submit" name="sub">Entrar</button>
                </form>
           </div>
           <div class="overlay-container">
                <div class="overlay">
                     <div class="overlay-panel overlay-left">
-                         <h1>Welcome Back!</h1>
-                         <p>To keep connected with us please login with your personal info</p>
-                         <button class="ghost" id="signIn">Sign In</button>
+                         <h1>Bem vindo de volta!</h1>
+                         <p>Para se manter conectado conosco, faça login com suas informações pessoais</p>
+                         <button class="ghost" id="signIn">Entrar</button>
                     </div>
                     <div class="overlay-panel overlay-right">
-                         <h1>Hello, Friend!</h1>
-                         <p>Enter your personal details and start journey with us</p>
+                         <h1>Olá amigo!</h1>
+                         <p>Insira seus dados pessoais e comece a jornada conosco</p>
                          <button class="ghost" id="signUp">Sign Up</button>
                     </div>
                </div>
