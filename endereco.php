@@ -49,9 +49,11 @@
                     new StringField('rua'),
                     new IntegerField('numero'),
                     new StringField('bairro'),
-                    new StringField('cidade')
+                    new StringField('cidade'),
+                    new IntegerField('fk_dados')
                 )
             );
+            $this->dataset->AddLookupField('fk_dados', 'dados', new IntegerField('id'), new StringField('nome', false, false, false, false, 'fk_dados_nome', 'fk_dados_nome_dados'), 'fk_dados_nome_dados');
         }
     
         protected function DoPrepare() {
@@ -82,12 +84,13 @@
         protected function getFiltersColumns()
         {
             return array(
-                new FilterColumn($this->dataset, 'id', 'id', 'Id'),
+                new FilterColumn($this->dataset, 'id', 'id', 'Cod Endereço'),
                 new FilterColumn($this->dataset, 'cep', 'cep', 'Cep'),
                 new FilterColumn($this->dataset, 'rua', 'rua', 'Rua'),
                 new FilterColumn($this->dataset, 'numero', 'numero', 'Numero'),
                 new FilterColumn($this->dataset, 'bairro', 'bairro', 'Bairro'),
-                new FilterColumn($this->dataset, 'cidade', 'cidade', 'Cidade')
+                new FilterColumn($this->dataset, 'cidade', 'cidade', 'Cidade'),
+                new FilterColumn($this->dataset, 'fk_dados', 'fk_dados_nome', 'Usuario')
             );
         }
     
@@ -99,12 +102,14 @@
                 ->addColumn($columns['rua'])
                 ->addColumn($columns['numero'])
                 ->addColumn($columns['bairro'])
-                ->addColumn($columns['cidade']);
+                ->addColumn($columns['cidade'])
+                ->addColumn($columns['fk_dados']);
         }
     
         protected function setupColumnFilter(ColumnFilter $columnFilter)
         {
-    
+            $columnFilter
+                ->setOptionsFor('fk_dados');
         }
     
         protected function setupFilterBuilder(FilterBuilder $filterBuilder, FixedKeysArray $columns)
@@ -237,6 +242,41 @@
                     FilterConditionOperator::IS_NOT_BLANK => null
                 )
             );
+            
+            $main_editor = new DynamicCombobox('fk_dados_edit', $this->CreateLinkBuilder());
+            $main_editor->setAllowClear(true);
+            $main_editor->setMinimumInputLength(0);
+            $main_editor->SetAllowNullValue(false);
+            $main_editor->SetHandlerName('filter_builder_endereco_fk_dados_search');
+            
+            $multi_value_select_editor = new RemoteMultiValueSelect('fk_dados', $this->CreateLinkBuilder());
+            $multi_value_select_editor->SetHandlerName('filter_builder_endereco_fk_dados_search');
+            
+            $text_editor = new TextEdit('fk_dados');
+            
+            $filterBuilder->addColumn(
+                $columns['fk_dados'],
+                array(
+                    FilterConditionOperator::EQUALS => $main_editor,
+                    FilterConditionOperator::DOES_NOT_EQUAL => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN => $main_editor,
+                    FilterConditionOperator::IS_GREATER_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN => $main_editor,
+                    FilterConditionOperator::IS_LESS_THAN_OR_EQUAL_TO => $main_editor,
+                    FilterConditionOperator::IS_BETWEEN => $main_editor,
+                    FilterConditionOperator::IS_NOT_BETWEEN => $main_editor,
+                    FilterConditionOperator::CONTAINS => $text_editor,
+                    FilterConditionOperator::DOES_NOT_CONTAIN => $text_editor,
+                    FilterConditionOperator::BEGINS_WITH => $text_editor,
+                    FilterConditionOperator::ENDS_WITH => $text_editor,
+                    FilterConditionOperator::IS_LIKE => $text_editor,
+                    FilterConditionOperator::IS_NOT_LIKE => $text_editor,
+                    FilterConditionOperator::IN => $multi_value_select_editor,
+                    FilterConditionOperator::NOT_IN => $multi_value_select_editor,
+                    FilterConditionOperator::IS_BLANK => null,
+                    FilterConditionOperator::IS_NOT_BLANK => null
+                )
+            );
         }
     
         protected function AddOperationsColumns(Grid $grid)
@@ -283,7 +323,7 @@
             //
             // View column for id field
             //
-            $column = new NumberViewColumn('id', 'id', 'Id', $this->dataset);
+            $column = new NumberViewColumn('id', 'id', 'Cod Endereço', $this->dataset);
             $column->SetOrderable(true);
             $column->setNumberAfterDecimal(0);
             $column->setThousandsSeparator(',');
@@ -299,7 +339,7 @@
             $column = new NumberViewColumn('cep', 'cep', 'Cep', $this->dataset);
             $column->SetOrderable(true);
             $column->setNumberAfterDecimal(0);
-            $column->setThousandsSeparator(',');
+            $column->setThousandsSeparator('');
             $column->setDecimalSeparator('');
             $column->setMinimalVisibility(ColumnVisibility::PHONE);
             $column->SetDescription('');
@@ -343,6 +383,16 @@
             // View column for cidade field
             //
             $column = new TextViewColumn('cidade', 'cidade', 'Cidade', $this->dataset);
+            $column->SetOrderable(true);
+            $column->setMinimalVisibility(ColumnVisibility::PHONE);
+            $column->SetDescription('');
+            $column->SetFixedWidth(null);
+            $grid->AddViewColumn($column);
+            
+            //
+            // View column for nome field
+            //
+            $column = new TextViewColumn('fk_dados', 'fk_dados_nome', 'Usuario', $this->dataset);
             $column->SetOrderable(true);
             $column->setMinimalVisibility(ColumnVisibility::PHONE);
             $column->SetDescription('');
@@ -358,7 +408,7 @@
             $column = new NumberViewColumn('cep', 'cep', 'Cep', $this->dataset);
             $column->SetOrderable(true);
             $column->setNumberAfterDecimal(0);
-            $column->setThousandsSeparator(',');
+            $column->setThousandsSeparator('');
             $column->setDecimalSeparator('');
             $grid->AddSingleRecordViewColumn($column);
             
@@ -390,6 +440,13 @@
             // View column for cidade field
             //
             $column = new TextViewColumn('cidade', 'cidade', 'Cidade', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddSingleRecordViewColumn($column);
+            
+            //
+            // View column for nome field
+            //
+            $column = new TextViewColumn('fk_dados', 'fk_dados_nome', 'Usuario', $this->dataset);
             $column->SetOrderable(true);
             $grid->AddSingleRecordViewColumn($column);
         }
@@ -440,6 +497,33 @@
             $editor = new TextEdit('cidade_edit');
             $editor->SetMaxLength(30);
             $editColumn = new CustomEditColumn('Cidade', 'cidade', $editor, $this->dataset);
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddEditColumn($editColumn);
+            
+            //
+            // Edit column for fk_dados field
+            //
+            $editor = new DynamicCombobox('fk_dados_edit', $this->CreateLinkBuilder());
+            $editor->setAllowClear(true);
+            $editor->setMinimumInputLength(0);
+            $lookupDataset = new TableDataset(
+                MyPDOConnectionFactory::getInstance(),
+                GetConnectionOptions(),
+                '`dados`');
+            $lookupDataset->addFields(
+                array(
+                    new IntegerField('id', true, true, true),
+                    new StringField('nome'),
+                    new StringField('sobrenome'),
+                    new StringField('telefone'),
+                    new StringField('celular'),
+                    new IntegerField('cpf'),
+                    new IntegerField('fk_usuario')
+                )
+            );
+            $lookupDataset->setOrderByField('nome', 'ASC');
+            $editColumn = new DynamicLookupEditColumn('Usuario', 'fk_dados', 'fk_dados_nome', 'edit_endereco_fk_dados_search', $editor, $this->dataset, $lookupDataset, 'id', 'nome', '');
             $editColumn->SetAllowSetToNull(true);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddEditColumn($editColumn);
@@ -494,6 +578,33 @@
             $editColumn->SetAllowSetToNull(true);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddMultiEditColumn($editColumn);
+            
+            //
+            // Edit column for fk_dados field
+            //
+            $editor = new DynamicCombobox('fk_dados_edit', $this->CreateLinkBuilder());
+            $editor->setAllowClear(true);
+            $editor->setMinimumInputLength(0);
+            $lookupDataset = new TableDataset(
+                MyPDOConnectionFactory::getInstance(),
+                GetConnectionOptions(),
+                '`dados`');
+            $lookupDataset->addFields(
+                array(
+                    new IntegerField('id', true, true, true),
+                    new StringField('nome'),
+                    new StringField('sobrenome'),
+                    new StringField('telefone'),
+                    new StringField('celular'),
+                    new IntegerField('cpf'),
+                    new IntegerField('fk_usuario')
+                )
+            );
+            $lookupDataset->setOrderByField('nome', 'ASC');
+            $editColumn = new DynamicLookupEditColumn('Usuario', 'fk_dados', 'fk_dados_nome', 'multi_edit_endereco_fk_dados_search', $editor, $this->dataset, $lookupDataset, 'id', 'nome', '');
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddMultiEditColumn($editColumn);
         }
     
         protected function AddInsertColumns(Grid $grid)
@@ -545,6 +656,33 @@
             $editColumn->SetAllowSetToNull(true);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddInsertColumn($editColumn);
+            
+            //
+            // Edit column for fk_dados field
+            //
+            $editor = new DynamicCombobox('fk_dados_edit', $this->CreateLinkBuilder());
+            $editor->setAllowClear(true);
+            $editor->setMinimumInputLength(0);
+            $lookupDataset = new TableDataset(
+                MyPDOConnectionFactory::getInstance(),
+                GetConnectionOptions(),
+                '`dados`');
+            $lookupDataset->addFields(
+                array(
+                    new IntegerField('id', true, true, true),
+                    new StringField('nome'),
+                    new StringField('sobrenome'),
+                    new StringField('telefone'),
+                    new StringField('celular'),
+                    new IntegerField('cpf'),
+                    new IntegerField('fk_usuario')
+                )
+            );
+            $lookupDataset->setOrderByField('nome', 'ASC');
+            $editColumn = new DynamicLookupEditColumn('Usuario', 'fk_dados', 'fk_dados_nome', 'insert_endereco_fk_dados_search', $editor, $this->dataset, $lookupDataset, 'id', 'nome', '');
+            $editColumn->SetAllowSetToNull(true);
+            $this->ApplyCommonColumnEditProperties($editColumn);
+            $grid->AddInsertColumn($editColumn);
             $grid->SetShowAddButton(true && $this->GetSecurityInfo()->HasAddGrant());
         }
     
@@ -558,7 +696,7 @@
             //
             // View column for id field
             //
-            $column = new NumberViewColumn('id', 'id', 'Id', $this->dataset);
+            $column = new NumberViewColumn('id', 'id', 'Cod Endereço', $this->dataset);
             $column->SetOrderable(true);
             $column->setNumberAfterDecimal(0);
             $column->setThousandsSeparator(',');
@@ -571,7 +709,7 @@
             $column = new NumberViewColumn('cep', 'cep', 'Cep', $this->dataset);
             $column->SetOrderable(true);
             $column->setNumberAfterDecimal(0);
-            $column->setThousandsSeparator(',');
+            $column->setThousandsSeparator('');
             $column->setDecimalSeparator('');
             $grid->AddPrintColumn($column);
             
@@ -603,6 +741,13 @@
             // View column for cidade field
             //
             $column = new TextViewColumn('cidade', 'cidade', 'Cidade', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddPrintColumn($column);
+            
+            //
+            // View column for nome field
+            //
+            $column = new TextViewColumn('fk_dados', 'fk_dados_nome', 'Usuario', $this->dataset);
             $column->SetOrderable(true);
             $grid->AddPrintColumn($column);
         }
@@ -612,7 +757,7 @@
             //
             // View column for id field
             //
-            $column = new NumberViewColumn('id', 'id', 'Id', $this->dataset);
+            $column = new NumberViewColumn('id', 'id', 'Cod Endereço', $this->dataset);
             $column->SetOrderable(true);
             $column->setNumberAfterDecimal(0);
             $column->setThousandsSeparator(',');
@@ -625,7 +770,7 @@
             $column = new NumberViewColumn('cep', 'cep', 'Cep', $this->dataset);
             $column->SetOrderable(true);
             $column->setNumberAfterDecimal(0);
-            $column->setThousandsSeparator(',');
+            $column->setThousandsSeparator('');
             $column->setDecimalSeparator('');
             $grid->AddExportColumn($column);
             
@@ -657,6 +802,13 @@
             // View column for cidade field
             //
             $column = new TextViewColumn('cidade', 'cidade', 'Cidade', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddExportColumn($column);
+            
+            //
+            // View column for nome field
+            //
+            $column = new TextViewColumn('fk_dados', 'fk_dados_nome', 'Usuario', $this->dataset);
             $column->SetOrderable(true);
             $grid->AddExportColumn($column);
         }
@@ -669,7 +821,7 @@
             $column = new NumberViewColumn('cep', 'cep', 'Cep', $this->dataset);
             $column->SetOrderable(true);
             $column->setNumberAfterDecimal(0);
-            $column->setThousandsSeparator(',');
+            $column->setThousandsSeparator('');
             $column->setDecimalSeparator('');
             $grid->AddCompareColumn($column);
             
@@ -701,6 +853,13 @@
             // View column for cidade field
             //
             $column = new TextViewColumn('cidade', 'cidade', 'Cidade', $this->dataset);
+            $column->SetOrderable(true);
+            $grid->AddCompareColumn($column);
+            
+            //
+            // View column for nome field
+            //
+            $column = new TextViewColumn('fk_dados', 'fk_dados_nome', 'Usuario', $this->dataset);
             $column->SetOrderable(true);
             $grid->AddCompareColumn($column);
         }
@@ -794,8 +953,81 @@
         }
     
         protected function doRegisterHandlers() {
+            $lookupDataset = new TableDataset(
+                MyPDOConnectionFactory::getInstance(),
+                GetConnectionOptions(),
+                '`dados`');
+            $lookupDataset->addFields(
+                array(
+                    new IntegerField('id', true, true, true),
+                    new StringField('nome'),
+                    new StringField('sobrenome'),
+                    new StringField('telefone'),
+                    new StringField('celular'),
+                    new IntegerField('cpf'),
+                    new IntegerField('fk_usuario')
+                )
+            );
+            $lookupDataset->setOrderByField('nome', 'ASC');
+            $handler = new DynamicSearchHandler($lookupDataset, $this, 'insert_endereco_fk_dados_search', 'id', 'nome', null, 20);
+            GetApplication()->RegisterHTTPHandler($handler);
             
+            $lookupDataset = new TableDataset(
+                MyPDOConnectionFactory::getInstance(),
+                GetConnectionOptions(),
+                '`dados`');
+            $lookupDataset->addFields(
+                array(
+                    new IntegerField('id', true, true, true),
+                    new StringField('nome'),
+                    new StringField('sobrenome'),
+                    new StringField('telefone'),
+                    new StringField('celular'),
+                    new IntegerField('cpf'),
+                    new IntegerField('fk_usuario')
+                )
+            );
+            $lookupDataset->setOrderByField('nome', 'ASC');
+            $handler = new DynamicSearchHandler($lookupDataset, $this, 'filter_builder_endereco_fk_dados_search', 'id', 'nome', null, 20);
+            GetApplication()->RegisterHTTPHandler($handler);
             
+            $lookupDataset = new TableDataset(
+                MyPDOConnectionFactory::getInstance(),
+                GetConnectionOptions(),
+                '`dados`');
+            $lookupDataset->addFields(
+                array(
+                    new IntegerField('id', true, true, true),
+                    new StringField('nome'),
+                    new StringField('sobrenome'),
+                    new StringField('telefone'),
+                    new StringField('celular'),
+                    new IntegerField('cpf'),
+                    new IntegerField('fk_usuario')
+                )
+            );
+            $lookupDataset->setOrderByField('nome', 'ASC');
+            $handler = new DynamicSearchHandler($lookupDataset, $this, 'edit_endereco_fk_dados_search', 'id', 'nome', null, 20);
+            GetApplication()->RegisterHTTPHandler($handler);
+            
+            $lookupDataset = new TableDataset(
+                MyPDOConnectionFactory::getInstance(),
+                GetConnectionOptions(),
+                '`dados`');
+            $lookupDataset->addFields(
+                array(
+                    new IntegerField('id', true, true, true),
+                    new StringField('nome'),
+                    new StringField('sobrenome'),
+                    new StringField('telefone'),
+                    new StringField('celular'),
+                    new IntegerField('cpf'),
+                    new IntegerField('fk_usuario')
+                )
+            );
+            $lookupDataset->setOrderByField('nome', 'ASC');
+            $handler = new DynamicSearchHandler($lookupDataset, $this, 'multi_edit_endereco_fk_dados_search', 'id', 'nome', null, 20);
+            GetApplication()->RegisterHTTPHandler($handler);
         }
        
         protected function doCustomRenderColumn($fieldName, $fieldData, $rowData, &$customText, &$handled)

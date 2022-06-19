@@ -42,12 +42,45 @@ $grants = array('guest' =>
         'usuario' => new PermissionSet(false, false, false, false),
         'usuario.dados' => new PermissionSet(false, false, false, false),
         'usuario.pedido' => new PermissionSet(false, false, false, false))
+    ,
+    'super' => 
+        array('dados' => new PermissionSet(false, false, false, false),
+        'endereco' => new PermissionSet(false, false, false, false),
+        'pedido' => new PermissionSet(false, false, false, false),
+        'produto' => new PermissionSet(false, false, false, false),
+        'produto.pedido' => new PermissionSet(false, false, false, false),
+        'usuario' => new PermissionSet(false, false, false, false),
+        'usuario.dados' => new PermissionSet(false, false, false, false),
+        'usuario.pedido' => new PermissionSet(false, false, false, false))
+    ,
+    'aholanda' => 
+        array('dados' => new PermissionSet(false, false, false, false),
+        'endereco' => new PermissionSet(false, false, false, false),
+        'pedido' => new PermissionSet(false, false, false, false),
+        'produto' => new PermissionSet(false, false, false, false),
+        'produto.pedido' => new PermissionSet(false, false, false, false),
+        'usuario' => new PermissionSet(false, false, false, false),
+        'usuario.dados' => new PermissionSet(false, false, false, false),
+        'usuario.pedido' => new PermissionSet(false, false, false, false))
+    ,
+    'ralves' => 
+        array('dados' => new PermissionSet(false, false, false, false),
+        'endereco' => new PermissionSet(false, false, false, false),
+        'pedido' => new PermissionSet(false, false, false, false),
+        'produto' => new PermissionSet(false, false, false, false),
+        'produto.pedido' => new PermissionSet(false, false, false, false),
+        'usuario' => new PermissionSet(false, false, false, false),
+        'usuario.dados' => new PermissionSet(false, false, false, false),
+        'usuario.pedido' => new PermissionSet(false, false, false, false))
     );
 
 $appGrants = array('guest' => new PermissionSet(false, false, false, false),
     'defaultUser' => new PermissionSet(true, false, false, false),
     'mbauer' => new AdminPermissionSet(),
-    'elima' => new AdminPermissionSet());
+    'elima' => new AdminPermissionSet(),
+    'super' => new PermissionSet(false, true, false, false),
+    'aholanda' => new PermissionSet(false, true, false, false),
+    'ralves' => new PermissionSet(false, true, false, false));
 
 $dataSourceRecordPermissions = array();
 

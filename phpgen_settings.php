@@ -64,6 +64,7 @@ function GetPageInfos()
     $result[] = array('caption' => 'Endereco', 'short_caption' => 'Endereco', 'filename' => 'endereco.php', 'name' => 'endereco', 'group_name' => 'Default', 'add_separator' => false, 'description' => '');
     $result[] = array('caption' => 'Pedido', 'short_caption' => 'Pedido', 'filename' => 'pedido.php', 'name' => 'pedido', 'group_name' => 'Default', 'add_separator' => false, 'description' => '');
     $result[] = array('caption' => 'Produto', 'short_caption' => 'Produto', 'filename' => 'produto.php', 'name' => 'produto', 'group_name' => 'Default', 'add_separator' => false, 'description' => '');
+    $result[] = array('caption' => 'Usuario', 'short_caption' => 'Usuario', 'filename' => 'usuario.php', 'name' => 'usuario', 'group_name' => 'Default', 'add_separator' => false, 'description' => '');
     return $result;
 }
 

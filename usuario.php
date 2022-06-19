@@ -1541,7 +1541,7 @@
                 '`produto`');
             $lookupDataset->addFields(
                 array(
-                    new IntegerField('id', true, true),
+                    new IntegerField('id', true, true, true),
                     new StringField('nomeProduto'),
                     new IntegerField('qtd'),
                     new IntegerField('valorUnitario'),
@@ -1611,7 +1611,7 @@
                 '`produto`');
             $lookupDataset->addFields(
                 array(
-                    new IntegerField('id', true, true),
+                    new IntegerField('id', true, true, true),
                     new StringField('nomeProduto'),
                     new IntegerField('qtd'),
                     new IntegerField('valorUnitario'),
@@ -1681,7 +1681,7 @@
                 '`produto`');
             $lookupDataset->addFields(
                 array(
-                    new IntegerField('id', true, true),
+                    new IntegerField('id', true, true, true),
                     new StringField('nomeProduto'),
                     new IntegerField('qtd'),
                     new IntegerField('valorUnitario'),
@@ -1951,7 +1951,7 @@
                 '`produto`');
             $lookupDataset->addFields(
                 array(
-                    new IntegerField('id', true, true),
+                    new IntegerField('id', true, true, true),
                     new StringField('nomeProduto'),
                     new IntegerField('qtd'),
                     new IntegerField('valorUnitario'),
@@ -1984,7 +1984,7 @@
                 '`produto`');
             $lookupDataset->addFields(
                 array(
-                    new IntegerField('id', true, true),
+                    new IntegerField('id', true, true, true),
                     new StringField('nomeProduto'),
                     new IntegerField('qtd'),
                     new IntegerField('valorUnitario'),
@@ -2017,7 +2017,7 @@
                 '`produto`');
             $lookupDataset->addFields(
                 array(
-                    new IntegerField('id', true, true),
+                    new IntegerField('id', true, true, true),
                     new StringField('nomeProduto'),
                     new IntegerField('qtd'),
                     new IntegerField('valorUnitario'),
@@ -2050,7 +2050,7 @@
                 '`produto`');
             $lookupDataset->addFields(
                 array(
-                    new IntegerField('id', true, true),
+                    new IntegerField('id', true, true, true),
                     new StringField('nomeProduto'),
                     new IntegerField('qtd'),
                     new IntegerField('valorUnitario'),

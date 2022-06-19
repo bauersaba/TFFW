@@ -416,7 +416,7 @@
                 '`produto`');
             $lookupDataset->addFields(
                 array(
-                    new IntegerField('id', true, true),
+                    new IntegerField('id', true, true, true),
                     new StringField('nomeProduto'),
                     new IntegerField('qtd'),
                     new IntegerField('valorUnitario'),
@@ -486,7 +486,7 @@
                 '`produto`');
             $lookupDataset->addFields(
                 array(
-                    new IntegerField('id', true, true),
+                    new IntegerField('id', true, true, true),
                     new StringField('nomeProduto'),
                     new IntegerField('qtd'),
                     new IntegerField('valorUnitario'),
@@ -556,7 +556,7 @@
                 '`produto`');
             $lookupDataset->addFields(
                 array(
-                    new IntegerField('id', true, true),
+                    new IntegerField('id', true, true, true),
                     new StringField('nomeProduto'),
                     new IntegerField('qtd'),
                     new IntegerField('valorUnitario'),
@@ -826,7 +826,7 @@
                 '`produto`');
             $lookupDataset->addFields(
                 array(
-                    new IntegerField('id', true, true),
+                    new IntegerField('id', true, true, true),
                     new StringField('nomeProduto'),
                     new IntegerField('qtd'),
                     new IntegerField('valorUnitario'),
@@ -859,7 +859,7 @@
                 '`produto`');
             $lookupDataset->addFields(
                 array(
-                    new IntegerField('id', true, true),
+                    new IntegerField('id', true, true, true),
                     new StringField('nomeProduto'),
                     new IntegerField('qtd'),
                     new IntegerField('valorUnitario'),
@@ -892,7 +892,7 @@
                 '`produto`');
             $lookupDataset->addFields(
                 array(
-                    new IntegerField('id', true, true),
+                    new IntegerField('id', true, true, true),
                     new StringField('nomeProduto'),
                     new IntegerField('qtd'),
                     new IntegerField('valorUnitario'),
@@ -925,7 +925,7 @@
                 '`produto`');
             $lookupDataset->addFields(
                 array(
-                    new IntegerField('id', true, true),
+                    new IntegerField('id', true, true, true),
                     new StringField('nomeProduto'),
                     new IntegerField('qtd'),
                     new IntegerField('valorUnitario'),
@@ -1112,7 +1112,7 @@
                 '`produto`');
             $this->dataset->addFields(
                 array(
-                    new IntegerField('id', true, true),
+                    new IntegerField('id', true, true, true),
                     new StringField('nomeProduto'),
                     new IntegerField('qtd'),
                     new IntegerField('valorUnitario'),
@@ -1155,7 +1155,7 @@
                 new FilterColumn($this->dataset, 'qtd', 'qtd', 'Qtd'),
                 new FilterColumn($this->dataset, 'valorUnitario', 'valorUnitario', 'Valor Unitario'),
                 new FilterColumn($this->dataset, 'imagem', 'imagem', 'Imagem'),
-                new FilterColumn($this->dataset, 'thumb', 'thumb', 'Thumb')
+                new FilterColumn($this->dataset, 'thumb', 'thumb', 'Foto')
             );
         }
     
@@ -1386,9 +1386,9 @@
             $column = new CurrencyViewColumn('valorUnitario', 'valorUnitario', 'Valor Unitario', $this->dataset);
             $column->SetOrderable(true);
             $column->setNumberAfterDecimal(2);
-            $column->setThousandsSeparator(',');
+            $column->setThousandsSeparator('');
             $column->setDecimalSeparator(',');
-            $column->setCurrencySign('R$');
+            $column->setCurrencySign('R$ ');
             $column->setMinimalVisibility(ColumnVisibility::PHONE);
             $column->SetDescription('');
             $column->SetFixedWidth(null);
@@ -1397,9 +1397,8 @@
             //
             // View column for thumb field
             //
-            $column = new ExternalImageViewColumn('thumb', 'thumb', 'Thumb', $this->dataset);
+            $column = new ExternalImageViewColumn('thumb', 'thumb', 'Foto', $this->dataset);
             $column->SetOrderable(true);
-            $column->setOriginalImageInfo('imagem', '', '');
             $column->setMinimalVisibility(ColumnVisibility::PHONE);
             $column->SetDescription('');
             $column->SetFixedWidth(null);
@@ -1431,9 +1430,9 @@
             $column = new CurrencyViewColumn('valorUnitario', 'valorUnitario', 'Valor Unitario', $this->dataset);
             $column->SetOrderable(true);
             $column->setNumberAfterDecimal(2);
-            $column->setThousandsSeparator(',');
+            $column->setThousandsSeparator('');
             $column->setDecimalSeparator(',');
-            $column->setCurrencySign('R$');
+            $column->setCurrencySign('R$ ');
             $grid->AddSingleRecordViewColumn($column);
             
             //
@@ -1547,7 +1546,7 @@
             // Edit column for thumb field
             //
             $editor = new TextEdit('thumb_edit');
-            $editColumn = new CustomEditColumn('Thumb', 'thumb', $editor, $this->dataset);
+            $editColumn = new CustomEditColumn('Foto', 'thumb', $editor, $this->dataset);
             $editColumn->SetAllowSetToNull(true);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddMultiEditColumn($editColumn);
@@ -1645,9 +1644,9 @@
             $column = new CurrencyViewColumn('valorUnitario', 'valorUnitario', 'Valor Unitario', $this->dataset);
             $column->SetOrderable(true);
             $column->setNumberAfterDecimal(2);
-            $column->setThousandsSeparator(',');
+            $column->setThousandsSeparator('');
             $column->setDecimalSeparator(',');
-            $column->setCurrencySign('R$');
+            $column->setCurrencySign('R$ ');
             $grid->AddPrintColumn($column);
             
             //
@@ -1660,9 +1659,8 @@
             //
             // View column for thumb field
             //
-            $column = new ExternalImageViewColumn('thumb', 'thumb', 'Thumb', $this->dataset);
+            $column = new ExternalImageViewColumn('thumb', 'thumb', 'Foto', $this->dataset);
             $column->SetOrderable(true);
-            $column->setOriginalImageInfo('imagem', '', '');
             $grid->AddPrintColumn($column);
         }
     
@@ -1702,9 +1700,9 @@
             $column = new CurrencyViewColumn('valorUnitario', 'valorUnitario', 'Valor Unitario', $this->dataset);
             $column->SetOrderable(true);
             $column->setNumberAfterDecimal(2);
-            $column->setThousandsSeparator(',');
+            $column->setThousandsSeparator('');
             $column->setDecimalSeparator(',');
-            $column->setCurrencySign('R$');
+            $column->setCurrencySign('R$ ');
             $grid->AddExportColumn($column);
             
             //
@@ -1717,9 +1715,8 @@
             //
             // View column for thumb field
             //
-            $column = new ExternalImageViewColumn('thumb', 'thumb', 'Thumb', $this->dataset);
+            $column = new ExternalImageViewColumn('thumb', 'thumb', 'Foto', $this->dataset);
             $column->SetOrderable(true);
-            $column->setOriginalImageInfo('imagem', '', '');
             $grid->AddExportColumn($column);
         }
     
@@ -1759,9 +1756,9 @@
             $column = new CurrencyViewColumn('valorUnitario', 'valorUnitario', 'Valor Unitario', $this->dataset);
             $column->SetOrderable(true);
             $column->setNumberAfterDecimal(2);
-            $column->setThousandsSeparator(',');
+            $column->setThousandsSeparator('');
             $column->setDecimalSeparator(',');
-            $column->setCurrencySign('R$');
+            $column->setCurrencySign('R$ ');
             $grid->AddCompareColumn($column);
             
             //
@@ -1774,9 +1771,8 @@
             //
             // View column for thumb field
             //
-            $column = new ExternalImageViewColumn('thumb', 'thumb', 'Thumb', $this->dataset);
+            $column = new ExternalImageViewColumn('thumb', 'thumb', 'Foto', $this->dataset);
             $column->SetOrderable(true);
-            $column->setOriginalImageInfo('imagem', '', '');
             $grid->AddCompareColumn($column);
         }
     
@@ -1828,7 +1824,7 @@
         $targetFolder = FormatDatasetFieldsTemplate($this->GetDataset(), 'imagens/');
         FileUtils::ForceDirectories($targetFolder);
         
-        $filename = ApplyVariablesMapToTemplate('small%original_file_name%',
+        $filename = ApplyVariablesMapToTemplate('small_%original_file_name%',
             array(
                 'original_file_name' => $original_file_name,
                 'original_file_extension' => $original_file_extension,
@@ -1854,7 +1850,7 @@
         $targetFolder = FormatDatasetFieldsTemplate($this->GetDataset(), 'imagens/');
         FileUtils::ForceDirectories($targetFolder);
         
-        $filename = ApplyVariablesMapToTemplate('small%original_file_name%',
+        $filename = ApplyVariablesMapToTemplate('small_%original_file_name%',
             array(
                 'original_file_name' => $original_file_name,
                 'original_file_extension' => $original_file_extension,
@@ -1870,7 +1866,7 @@
         $targetFolder = FormatDatasetFieldsTemplate($this->GetDataset(), 'imagens/');
         FileUtils::ForceDirectories($targetFolder);
         
-        $filename = ApplyVariablesMapToTemplate('small%original_file_name%',
+        $filename = ApplyVariablesMapToTemplate('small_%original_file_name%',
             array(
                 'original_file_name' => $original_file_name,
                 'original_file_extension' => $original_file_extension,

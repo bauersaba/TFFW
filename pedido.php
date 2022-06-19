@@ -36,7 +36,7 @@
                 '`produto`');
             $this->dataset->addFields(
                 array(
-                    new IntegerField('id', true, true),
+                    new IntegerField('id', true, true, true),
                     new StringField('nomeProduto'),
                     new IntegerField('qtd'),
                     new IntegerField('valorUnitario'),
@@ -331,21 +331,23 @@
     
         protected function setupCharts()
         {
-            $chart = new Chart('Chart01', Chart::TYPE_PIE, $this->dataset);
+            $chart = new Chart('Chart01', Chart::TYPE_LINE, $this->dataset);
             $chart->setTitle('Chart01');
-            $chart->setDomainColumn('fk_usuario', 'Comprador', 'int');
-            $chart->addDataColumn('valorPedido', 'Valor de compra', 'float');
+            $chart->setDomainColumn('id', 'Item', 'int');
+            $chart->addDataColumn('fk_usuario', 'Nome Usuario', 'int');
+            $chart->addDataColumn('quantidadeProduto', 'Qtd Produtos', 'int');
+            $chart->addDataColumn('valorPedido', 'Valor total', 'float');
             $this->addChart($chart, 0, ChartPosition::BEFORE_GRID, 12);
         }
     
         protected function getFiltersColumns()
         {
             return array(
-                new FilterColumn($this->dataset, 'id', 'id', 'Id'),
+                new FilterColumn($this->dataset, 'id', 'id', 'Nu Pedido'),
                 new FilterColumn($this->dataset, 'valorPedido', 'valorPedido', 'Valor Pedido'),
                 new FilterColumn($this->dataset, 'quantidadeProduto', 'quantidadeProduto', 'Quantidade Produto'),
-                new FilterColumn($this->dataset, 'fk_produto', 'fk_produto_nomeProduto', 'Fk Produto'),
-                new FilterColumn($this->dataset, 'fk_usuario', 'fk_usuario_usuario', 'Fk Usuario')
+                new FilterColumn($this->dataset, 'fk_produto', 'fk_produto_nomeProduto', 'Produto'),
+                new FilterColumn($this->dataset, 'fk_usuario', 'fk_usuario_usuario', 'Usuario')
             );
         }
     
@@ -537,7 +539,7 @@
             //
             // View column for id field
             //
-            $column = new NumberViewColumn('id', 'id', 'Id', $this->dataset);
+            $column = new NumberViewColumn('id', 'id', 'Nu Pedido', $this->dataset);
             $column->SetOrderable(true);
             $column->setNumberAfterDecimal(0);
             $column->setThousandsSeparator(',');
@@ -550,11 +552,12 @@
             //
             // View column for valorPedido field
             //
-            $column = new NumberViewColumn('valorPedido', 'valorPedido', 'Valor Pedido', $this->dataset);
+            $column = new CurrencyViewColumn('valorPedido', 'valorPedido', 'Valor Pedido', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(4);
-            $column->setThousandsSeparator(',');
-            $column->setDecimalSeparator('.');
+            $column->setNumberAfterDecimal(2);
+            $column->setThousandsSeparator('');
+            $column->setDecimalSeparator(',');
+            $column->setCurrencySign('R$ ');
             $column->setMinimalVisibility(ColumnVisibility::PHONE);
             $column->SetDescription('');
             $column->SetFixedWidth(null);
@@ -576,7 +579,7 @@
             //
             // View column for nomeProduto field
             //
-            $column = new TextViewColumn('fk_produto', 'fk_produto_nomeProduto', 'Fk Produto', $this->dataset);
+            $column = new TextViewColumn('fk_produto', 'fk_produto_nomeProduto', 'Produto', $this->dataset);
             $column->SetOrderable(true);
             $column->setMinimalVisibility(ColumnVisibility::PHONE);
             $column->SetDescription('');
@@ -586,7 +589,7 @@
             //
             // View column for usuario field
             //
-            $column = new TextViewColumn('fk_usuario', 'fk_usuario_usuario', 'Fk Usuario', $this->dataset);
+            $column = new TextViewColumn('fk_usuario', 'fk_usuario_usuario', 'Usuario', $this->dataset);
             $column->SetOrderable(true);
             $column->setMinimalVisibility(ColumnVisibility::PHONE);
             $column->SetDescription('');
@@ -599,11 +602,12 @@
             //
             // View column for valorPedido field
             //
-            $column = new NumberViewColumn('valorPedido', 'valorPedido', 'Valor Pedido', $this->dataset);
+            $column = new CurrencyViewColumn('valorPedido', 'valorPedido', 'Valor Pedido', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(4);
-            $column->setThousandsSeparator(',');
-            $column->setDecimalSeparator('.');
+            $column->setNumberAfterDecimal(2);
+            $column->setThousandsSeparator('');
+            $column->setDecimalSeparator(',');
+            $column->setCurrencySign('R$ ');
             $grid->AddSingleRecordViewColumn($column);
             
             //
@@ -619,14 +623,14 @@
             //
             // View column for nomeProduto field
             //
-            $column = new TextViewColumn('fk_produto', 'fk_produto_nomeProduto', 'Fk Produto', $this->dataset);
+            $column = new TextViewColumn('fk_produto', 'fk_produto_nomeProduto', 'Produto', $this->dataset);
             $column->SetOrderable(true);
             $grid->AddSingleRecordViewColumn($column);
             
             //
             // View column for usuario field
             //
-            $column = new TextViewColumn('fk_usuario', 'fk_usuario_usuario', 'Fk Usuario', $this->dataset);
+            $column = new TextViewColumn('fk_usuario', 'fk_usuario_usuario', 'Usuario', $this->dataset);
             $column->SetOrderable(true);
             $grid->AddSingleRecordViewColumn($column);
         }
@@ -663,7 +667,7 @@
                 '`produto`');
             $lookupDataset->addFields(
                 array(
-                    new IntegerField('id', true, true),
+                    new IntegerField('id', true, true, true),
                     new StringField('nomeProduto'),
                     new IntegerField('qtd'),
                     new IntegerField('valorUnitario'),
@@ -672,7 +676,7 @@
                 )
             );
             $lookupDataset->setOrderByField('nomeProduto', 'ASC');
-            $editColumn = new DynamicLookupEditColumn('Fk Produto', 'fk_produto', 'fk_produto_nomeProduto', 'edit_pedido_fk_produto_search', $editor, $this->dataset, $lookupDataset, 'id', 'nomeProduto', '');
+            $editColumn = new DynamicLookupEditColumn('Produto', 'fk_produto', 'fk_produto_nomeProduto', 'edit_pedido_fk_produto_search', $editor, $this->dataset, $lookupDataset, 'id', 'nomeProduto', '');
             $editColumn->setNestedInsertFormLink(
                 $this->GetHandlerLink(pedido_fk_produtoNestedPage::getNestedInsertHandlerName())
             );
@@ -698,7 +702,7 @@
                 )
             );
             $lookupDataset->setOrderByField('usuario', 'ASC');
-            $editColumn = new DynamicLookupEditColumn('Fk Usuario', 'fk_usuario', 'fk_usuario_usuario', '_pedido_fk_usuario_search', $editor, $this->dataset, $lookupDataset, 'id', 'usuario', '');
+            $editColumn = new DynamicLookupEditColumn('Usuario', 'fk_usuario', 'fk_usuario_usuario', '_pedido_fk_usuario_search', $editor, $this->dataset, $lookupDataset, 'id', 'usuario', '');
             $editColumn->setNestedInsertFormLink(
                 $this->GetHandlerLink(pedido_fk_usuarioNestedPage::getNestedInsertHandlerName())
             );
@@ -739,7 +743,7 @@
                 '`produto`');
             $lookupDataset->addFields(
                 array(
-                    new IntegerField('id', true, true),
+                    new IntegerField('id', true, true, true),
                     new StringField('nomeProduto'),
                     new IntegerField('qtd'),
                     new IntegerField('valorUnitario'),
@@ -748,7 +752,7 @@
                 )
             );
             $lookupDataset->setOrderByField('nomeProduto', 'ASC');
-            $editColumn = new DynamicLookupEditColumn('Fk Produto', 'fk_produto', 'fk_produto_nomeProduto', 'multi_edit_pedido_fk_produto_search', $editor, $this->dataset, $lookupDataset, 'id', 'nomeProduto', '');
+            $editColumn = new DynamicLookupEditColumn('Produto', 'fk_produto', 'fk_produto_nomeProduto', 'multi_edit_pedido_fk_produto_search', $editor, $this->dataset, $lookupDataset, 'id', 'nomeProduto', '');
             $editColumn->setNestedInsertFormLink(
                 $this->GetHandlerLink(pedido_fk_produtoNestedPage::getNestedInsertHandlerName())
             );
@@ -774,7 +778,7 @@
                 )
             );
             $lookupDataset->setOrderByField('usuario', 'ASC');
-            $editColumn = new DynamicLookupEditColumn('Fk Usuario', 'fk_usuario', 'fk_usuario_usuario', 'multi_edit_pedido_fk_usuario_search', $editor, $this->dataset, $lookupDataset, 'id', 'usuario', '');
+            $editColumn = new DynamicLookupEditColumn('Usuario', 'fk_usuario', 'fk_usuario_usuario', 'multi_edit_pedido_fk_usuario_search', $editor, $this->dataset, $lookupDataset, 'id', 'usuario', '');
             $editColumn->setNestedInsertFormLink(
                 $this->GetHandlerLink(pedido_fk_usuarioNestedPage::getNestedInsertHandlerName())
             );
@@ -815,7 +819,7 @@
                 '`produto`');
             $lookupDataset->addFields(
                 array(
-                    new IntegerField('id', true, true),
+                    new IntegerField('id', true, true, true),
                     new StringField('nomeProduto'),
                     new IntegerField('qtd'),
                     new IntegerField('valorUnitario'),
@@ -824,7 +828,7 @@
                 )
             );
             $lookupDataset->setOrderByField('nomeProduto', 'ASC');
-            $editColumn = new DynamicLookupEditColumn('Fk Produto', 'fk_produto', 'fk_produto_nomeProduto', 'insert_pedido_fk_produto_search', $editor, $this->dataset, $lookupDataset, 'id', 'nomeProduto', '');
+            $editColumn = new DynamicLookupEditColumn('Produto', 'fk_produto', 'fk_produto_nomeProduto', 'insert_pedido_fk_produto_search', $editor, $this->dataset, $lookupDataset, 'id', 'nomeProduto', '');
             $editColumn->setNestedInsertFormLink(
                 $this->GetHandlerLink(pedido_fk_produtoNestedPage::getNestedInsertHandlerName())
             );
@@ -850,7 +854,7 @@
                 )
             );
             $lookupDataset->setOrderByField('usuario', 'ASC');
-            $editColumn = new DynamicLookupEditColumn('Fk Usuario', 'fk_usuario', 'fk_usuario_usuario', 'insert_pedido_fk_usuario_search', $editor, $this->dataset, $lookupDataset, 'id', 'usuario', '');
+            $editColumn = new DynamicLookupEditColumn('Usuario', 'fk_usuario', 'fk_usuario_usuario', 'insert_pedido_fk_usuario_search', $editor, $this->dataset, $lookupDataset, 'id', 'usuario', '');
             $editColumn->setNestedInsertFormLink(
                 $this->GetHandlerLink(pedido_fk_usuarioNestedPage::getNestedInsertHandlerName())
             );
@@ -870,7 +874,7 @@
             //
             // View column for id field
             //
-            $column = new NumberViewColumn('id', 'id', 'Id', $this->dataset);
+            $column = new NumberViewColumn('id', 'id', 'Nu Pedido', $this->dataset);
             $column->SetOrderable(true);
             $column->setNumberAfterDecimal(0);
             $column->setThousandsSeparator(',');
@@ -880,11 +884,12 @@
             //
             // View column for valorPedido field
             //
-            $column = new NumberViewColumn('valorPedido', 'valorPedido', 'Valor Pedido', $this->dataset);
+            $column = new CurrencyViewColumn('valorPedido', 'valorPedido', 'Valor Pedido', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(4);
-            $column->setThousandsSeparator(',');
-            $column->setDecimalSeparator('.');
+            $column->setNumberAfterDecimal(2);
+            $column->setThousandsSeparator('');
+            $column->setDecimalSeparator(',');
+            $column->setCurrencySign('R$ ');
             $grid->AddPrintColumn($column);
             
             //
@@ -900,14 +905,14 @@
             //
             // View column for nomeProduto field
             //
-            $column = new TextViewColumn('fk_produto', 'fk_produto_nomeProduto', 'Fk Produto', $this->dataset);
+            $column = new TextViewColumn('fk_produto', 'fk_produto_nomeProduto', 'Produto', $this->dataset);
             $column->SetOrderable(true);
             $grid->AddPrintColumn($column);
             
             //
             // View column for usuario field
             //
-            $column = new TextViewColumn('fk_usuario', 'fk_usuario_usuario', 'Fk Usuario', $this->dataset);
+            $column = new TextViewColumn('fk_usuario', 'fk_usuario_usuario', 'Usuario', $this->dataset);
             $column->SetOrderable(true);
             $grid->AddPrintColumn($column);
         }
@@ -917,7 +922,7 @@
             //
             // View column for id field
             //
-            $column = new NumberViewColumn('id', 'id', 'Id', $this->dataset);
+            $column = new NumberViewColumn('id', 'id', 'Nu Pedido', $this->dataset);
             $column->SetOrderable(true);
             $column->setNumberAfterDecimal(0);
             $column->setThousandsSeparator(',');
@@ -927,11 +932,12 @@
             //
             // View column for valorPedido field
             //
-            $column = new NumberViewColumn('valorPedido', 'valorPedido', 'Valor Pedido', $this->dataset);
+            $column = new CurrencyViewColumn('valorPedido', 'valorPedido', 'Valor Pedido', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(4);
-            $column->setThousandsSeparator(',');
-            $column->setDecimalSeparator('.');
+            $column->setNumberAfterDecimal(2);
+            $column->setThousandsSeparator('');
+            $column->setDecimalSeparator(',');
+            $column->setCurrencySign('R$ ');
             $grid->AddExportColumn($column);
             
             //
@@ -947,14 +953,14 @@
             //
             // View column for nomeProduto field
             //
-            $column = new TextViewColumn('fk_produto', 'fk_produto_nomeProduto', 'Fk Produto', $this->dataset);
+            $column = new TextViewColumn('fk_produto', 'fk_produto_nomeProduto', 'Produto', $this->dataset);
             $column->SetOrderable(true);
             $grid->AddExportColumn($column);
             
             //
             // View column for usuario field
             //
-            $column = new TextViewColumn('fk_usuario', 'fk_usuario_usuario', 'Fk Usuario', $this->dataset);
+            $column = new TextViewColumn('fk_usuario', 'fk_usuario_usuario', 'Usuario', $this->dataset);
             $column->SetOrderable(true);
             $grid->AddExportColumn($column);
         }
@@ -964,11 +970,12 @@
             //
             // View column for valorPedido field
             //
-            $column = new NumberViewColumn('valorPedido', 'valorPedido', 'Valor Pedido', $this->dataset);
+            $column = new CurrencyViewColumn('valorPedido', 'valorPedido', 'Valor Pedido', $this->dataset);
             $column->SetOrderable(true);
-            $column->setNumberAfterDecimal(4);
-            $column->setThousandsSeparator(',');
-            $column->setDecimalSeparator('.');
+            $column->setNumberAfterDecimal(2);
+            $column->setThousandsSeparator('');
+            $column->setDecimalSeparator(',');
+            $column->setCurrencySign('R$ ');
             $grid->AddCompareColumn($column);
             
             //
@@ -984,14 +991,14 @@
             //
             // View column for nomeProduto field
             //
-            $column = new TextViewColumn('fk_produto', 'fk_produto_nomeProduto', 'Fk Produto', $this->dataset);
+            $column = new TextViewColumn('fk_produto', 'fk_produto_nomeProduto', 'Produto', $this->dataset);
             $column->SetOrderable(true);
             $grid->AddCompareColumn($column);
             
             //
             // View column for usuario field
             //
-            $column = new TextViewColumn('fk_usuario', 'fk_usuario_usuario', 'Fk Usuario', $this->dataset);
+            $column = new TextViewColumn('fk_usuario', 'fk_usuario_usuario', 'Usuario', $this->dataset);
             $column->SetOrderable(true);
             $grid->AddCompareColumn($column);
         }
@@ -1091,7 +1098,7 @@
                 '`produto`');
             $lookupDataset->addFields(
                 array(
-                    new IntegerField('id', true, true),
+                    new IntegerField('id', true, true, true),
                     new StringField('nomeProduto'),
                     new IntegerField('qtd'),
                     new IntegerField('valorUnitario'),
@@ -1124,7 +1131,7 @@
                 '`produto`');
             $lookupDataset->addFields(
                 array(
-                    new IntegerField('id', true, true),
+                    new IntegerField('id', true, true, true),
                     new StringField('nomeProduto'),
                     new IntegerField('qtd'),
                     new IntegerField('valorUnitario'),
@@ -1157,7 +1164,7 @@
                 '`produto`');
             $lookupDataset->addFields(
                 array(
-                    new IntegerField('id', true, true),
+                    new IntegerField('id', true, true, true),
                     new StringField('nomeProduto'),
                     new IntegerField('qtd'),
                     new IntegerField('valorUnitario'),
@@ -1190,7 +1197,7 @@
                 '`produto`');
             $lookupDataset->addFields(
                 array(
-                    new IntegerField('id', true, true),
+                    new IntegerField('id', true, true, true),
                     new StringField('nomeProduto'),
                     new IntegerField('qtd'),
                     new IntegerField('valorUnitario'),

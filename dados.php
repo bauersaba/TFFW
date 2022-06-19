@@ -84,13 +84,13 @@
         protected function getFiltersColumns()
         {
             return array(
-                new FilterColumn($this->dataset, 'id', 'id', 'Id'),
+                new FilterColumn($this->dataset, 'id', 'id', 'Cod Usuario'),
                 new FilterColumn($this->dataset, 'nome', 'nome', 'Nome'),
                 new FilterColumn($this->dataset, 'sobrenome', 'sobrenome', 'Sobrenome'),
                 new FilterColumn($this->dataset, 'telefone', 'telefone', 'Telefone'),
                 new FilterColumn($this->dataset, 'celular', 'celular', 'Celular'),
-                new FilterColumn($this->dataset, 'cpf', 'cpf', 'Cpf'),
-                new FilterColumn($this->dataset, 'fk_usuario', 'fk_usuario_usuario', 'Fk Usuario')
+                new FilterColumn($this->dataset, 'cpf', 'cpf', 'CPF'),
+                new FilterColumn($this->dataset, 'fk_usuario', 'fk_usuario_usuario', 'Usuario')
             );
         }
     
@@ -330,7 +330,7 @@
             //
             // View column for id field
             //
-            $column = new NumberViewColumn('id', 'id', 'Id', $this->dataset);
+            $column = new NumberViewColumn('id', 'id', 'Cod Usuario', $this->dataset);
             $column->SetOrderable(true);
             $column->setNumberAfterDecimal(0);
             $column->setThousandsSeparator(',');
@@ -383,10 +383,10 @@
             //
             // View column for cpf field
             //
-            $column = new NumberViewColumn('cpf', 'cpf', 'Cpf', $this->dataset);
+            $column = new NumberViewColumn('cpf', 'cpf', 'CPF', $this->dataset);
             $column->SetOrderable(true);
             $column->setNumberAfterDecimal(0);
-            $column->setThousandsSeparator(',');
+            $column->setThousandsSeparator('.');
             $column->setDecimalSeparator('');
             $column->setMinimalVisibility(ColumnVisibility::PHONE);
             $column->SetDescription('');
@@ -396,7 +396,7 @@
             //
             // View column for usuario field
             //
-            $column = new TextViewColumn('fk_usuario', 'fk_usuario_usuario', 'Fk Usuario', $this->dataset);
+            $column = new TextViewColumn('fk_usuario', 'fk_usuario_usuario', 'Usuario', $this->dataset);
             $column->SetOrderable(true);
             $column->setMinimalVisibility(ColumnVisibility::PHONE);
             $column->SetDescription('');
@@ -437,17 +437,17 @@
             //
             // View column for cpf field
             //
-            $column = new NumberViewColumn('cpf', 'cpf', 'Cpf', $this->dataset);
+            $column = new NumberViewColumn('cpf', 'cpf', 'CPF', $this->dataset);
             $column->SetOrderable(true);
             $column->setNumberAfterDecimal(0);
-            $column->setThousandsSeparator(',');
+            $column->setThousandsSeparator('.');
             $column->setDecimalSeparator('');
             $grid->AddSingleRecordViewColumn($column);
             
             //
             // View column for usuario field
             //
-            $column = new TextViewColumn('fk_usuario', 'fk_usuario_usuario', 'Fk Usuario', $this->dataset);
+            $column = new TextViewColumn('fk_usuario', 'fk_usuario_usuario', 'Usuario', $this->dataset);
             $column->SetOrderable(true);
             $grid->AddSingleRecordViewColumn($column);
         }
@@ -498,7 +498,7 @@
             // Edit column for cpf field
             //
             $editor = new TextEdit('cpf_edit');
-            $editColumn = new CustomEditColumn('Cpf', 'cpf', $editor, $this->dataset);
+            $editColumn = new CustomEditColumn('CPF', 'cpf', $editor, $this->dataset);
             $editColumn->SetAllowSetToNull(true);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddEditColumn($editColumn);
@@ -521,7 +521,7 @@
                 )
             );
             $lookupDataset->setOrderByField('usuario', 'ASC');
-            $editColumn = new DynamicLookupEditColumn('Fk Usuario', 'fk_usuario', 'fk_usuario_usuario', 'edit_dados_fk_usuario_search', $editor, $this->dataset, $lookupDataset, 'id', 'usuario', '');
+            $editColumn = new DynamicLookupEditColumn('Usuario', 'fk_usuario', 'fk_usuario_usuario', 'edit_dados_fk_usuario_search', $editor, $this->dataset, $lookupDataset, 'id', 'usuario', '');
             $editColumn->SetAllowSetToNull(true);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddEditColumn($editColumn);
@@ -573,7 +573,7 @@
             // Edit column for cpf field
             //
             $editor = new TextEdit('cpf_edit');
-            $editColumn = new CustomEditColumn('Cpf', 'cpf', $editor, $this->dataset);
+            $editColumn = new CustomEditColumn('CPF', 'cpf', $editor, $this->dataset);
             $editColumn->SetAllowSetToNull(true);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddMultiEditColumn($editColumn);
@@ -596,7 +596,7 @@
                 )
             );
             $lookupDataset->setOrderByField('usuario', 'ASC');
-            $editColumn = new DynamicLookupEditColumn('Fk Usuario', 'fk_usuario', 'fk_usuario_usuario', 'multi_edit_dados_fk_usuario_search', $editor, $this->dataset, $lookupDataset, 'id', 'usuario', '');
+            $editColumn = new DynamicLookupEditColumn('Usuario', 'fk_usuario', 'fk_usuario_usuario', 'multi_edit_dados_fk_usuario_search', $editor, $this->dataset, $lookupDataset, 'id', 'usuario', '');
             $editColumn->SetAllowSetToNull(true);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddMultiEditColumn($editColumn);
@@ -648,7 +648,7 @@
             // Edit column for cpf field
             //
             $editor = new TextEdit('cpf_edit');
-            $editColumn = new CustomEditColumn('Cpf', 'cpf', $editor, $this->dataset);
+            $editColumn = new CustomEditColumn('CPF', 'cpf', $editor, $this->dataset);
             $editColumn->SetAllowSetToNull(true);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddInsertColumn($editColumn);
@@ -671,7 +671,7 @@
                 )
             );
             $lookupDataset->setOrderByField('usuario', 'ASC');
-            $editColumn = new DynamicLookupEditColumn('Fk Usuario', 'fk_usuario', 'fk_usuario_usuario', 'insert_dados_fk_usuario_search', $editor, $this->dataset, $lookupDataset, 'id', 'usuario', '');
+            $editColumn = new DynamicLookupEditColumn('Usuario', 'fk_usuario', 'fk_usuario_usuario', 'insert_dados_fk_usuario_search', $editor, $this->dataset, $lookupDataset, 'id', 'usuario', '');
             $editColumn->SetAllowSetToNull(true);
             $this->ApplyCommonColumnEditProperties($editColumn);
             $grid->AddInsertColumn($editColumn);
@@ -688,7 +688,7 @@
             //
             // View column for id field
             //
-            $column = new NumberViewColumn('id', 'id', 'Id', $this->dataset);
+            $column = new NumberViewColumn('id', 'id', 'Cod Usuario', $this->dataset);
             $column->SetOrderable(true);
             $column->setNumberAfterDecimal(0);
             $column->setThousandsSeparator(',');
@@ -726,17 +726,17 @@
             //
             // View column for cpf field
             //
-            $column = new NumberViewColumn('cpf', 'cpf', 'Cpf', $this->dataset);
+            $column = new NumberViewColumn('cpf', 'cpf', 'CPF', $this->dataset);
             $column->SetOrderable(true);
             $column->setNumberAfterDecimal(0);
-            $column->setThousandsSeparator(',');
+            $column->setThousandsSeparator('.');
             $column->setDecimalSeparator('');
             $grid->AddPrintColumn($column);
             
             //
             // View column for usuario field
             //
-            $column = new TextViewColumn('fk_usuario', 'fk_usuario_usuario', 'Fk Usuario', $this->dataset);
+            $column = new TextViewColumn('fk_usuario', 'fk_usuario_usuario', 'Usuario', $this->dataset);
             $column->SetOrderable(true);
             $grid->AddPrintColumn($column);
         }
@@ -746,7 +746,7 @@
             //
             // View column for id field
             //
-            $column = new NumberViewColumn('id', 'id', 'Id', $this->dataset);
+            $column = new NumberViewColumn('id', 'id', 'Cod Usuario', $this->dataset);
             $column->SetOrderable(true);
             $column->setNumberAfterDecimal(0);
             $column->setThousandsSeparator(',');
@@ -784,17 +784,17 @@
             //
             // View column for cpf field
             //
-            $column = new NumberViewColumn('cpf', 'cpf', 'Cpf', $this->dataset);
+            $column = new NumberViewColumn('cpf', 'cpf', 'CPF', $this->dataset);
             $column->SetOrderable(true);
             $column->setNumberAfterDecimal(0);
-            $column->setThousandsSeparator(',');
+            $column->setThousandsSeparator('.');
             $column->setDecimalSeparator('');
             $grid->AddExportColumn($column);
             
             //
             // View column for usuario field
             //
-            $column = new TextViewColumn('fk_usuario', 'fk_usuario_usuario', 'Fk Usuario', $this->dataset);
+            $column = new TextViewColumn('fk_usuario', 'fk_usuario_usuario', 'Usuario', $this->dataset);
             $column->SetOrderable(true);
             $grid->AddExportColumn($column);
         }
@@ -832,17 +832,17 @@
             //
             // View column for cpf field
             //
-            $column = new NumberViewColumn('cpf', 'cpf', 'Cpf', $this->dataset);
+            $column = new NumberViewColumn('cpf', 'cpf', 'CPF', $this->dataset);
             $column->SetOrderable(true);
             $column->setNumberAfterDecimal(0);
-            $column->setThousandsSeparator(',');
+            $column->setThousandsSeparator('.');
             $column->setDecimalSeparator('');
             $grid->AddCompareColumn($column);
             
             //
             // View column for usuario field
             //
-            $column = new TextViewColumn('fk_usuario', 'fk_usuario_usuario', 'Fk Usuario', $this->dataset);
+            $column = new TextViewColumn('fk_usuario', 'fk_usuario_usuario', 'Usuario', $this->dataset);
             $column->SetOrderable(true);
             $grid->AddCompareColumn($column);
         }
