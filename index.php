@@ -2,23 +2,6 @@
 
 include'connect.php';
 
-// is set 
-if(isset($_POST['sub'])){
-    $u=$_POST['user'];
-    $p=$_POST['pass'];
-    
-   $s= "select * from reg where username='$u' and password= '$p'";   
-   $qu= mysqli_query($con, $s);
-   if(mysqli_num_rows($qu)>0){
-      $f= mysqli_fetch_assoc($qu);
-      $_SESSION['id']=$f['id'];
-      header ('location:home.php');
-   }
-   else{
-       echo 'username or password does not exist';
-   }
-  
-}
 ?>
 
 <!DOCTYPE html>
@@ -84,7 +67,7 @@ if(isset($_POST['sub'])){
               </button>
             </from>
             <div class="user_option_box">
-              <a href="loginplate.php" class="account-link">
+              <a href="login.php" class="account-link">
                 <i class="fa fa-user" aria-hidden="true"></i>
                 <span>
                   Minha Conta
