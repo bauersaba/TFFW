@@ -71,13 +71,13 @@ function GetPageInfos()
 function GetPagesHeader()
 {
     return
-        '<div class="alert alert-danger SQLGeneratorEvaluationVersion"><h3 class="SQLGeneratorEvaluationVersion-head">This website was created by evaluation version of <a href="http://www.sqlmaestro.com/products/mysql/phpgenerator/" class="alert-link">PHP Generator for MySQL Professional</a>.</h3><img class="SQLGeneratorEvaluationVersion-justify" src="components/assets/img/btn-loading.png"></div>';
+        '';
 }
 
 function GetPagesFooter()
 {
     return
-        '<p align="right">(C) <span>2002-<script type="text/javascript">document.write(new Date().getFullYear().toString())</script></span><a href="http://www.sqlmaestro.com/products/mysql/phpgenerator/"> SQL Maestro Group</a>.</p>';
+        '<p align="right">(C) <span><script type="text/javascript">document.write(new Date().getFullYear().toString())</script></span> Edson Lima & Marcelo Bauer</a>.</p>';
 }
 
 function ApplyCommonPageSettings(Page $page, Grid $grid)
