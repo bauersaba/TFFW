@@ -11,4 +11,3 @@ smarty_core_load_plugins(array('plugins' => array(array('modifier', 'escapeurl',
         </a>
     </div>
 <?php endif; ?>
-
